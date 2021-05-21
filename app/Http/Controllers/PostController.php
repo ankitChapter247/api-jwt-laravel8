@@ -17,8 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::latest()->paginate(5);
-
-        if ($post) {
+        if (count($post)) {
             return response()->json(
                 [
                     'message' => 'show posts ',
@@ -30,7 +29,7 @@ class PostController extends Controller
                 [
                     'message'=> "no post are avilable"
                 ]
-            );   
+            ,204);   
         }
         
     }
