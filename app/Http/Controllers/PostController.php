@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Validator;
+use Image;
+use File;
 
 class PostController extends Controller
 {
@@ -59,6 +61,16 @@ class PostController extends Controller
             $destinationPath = 'image/';
             $imagePath = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $imagePath);
+
+            $thumbdestinationPath = 'image/thumbnail';
+                    if(!File::isDirectory($thumbdestinationPath)){
+                        File::makeDirectory($thumbdestinationPath, 0777, true, true);
+                    }
+                $img = Image::make('image/'.$imagePath);
+                $img->resize(80, 80, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($thumbdestinationPath.'/'.$imagePath);
+
         }
     
         $post = Post::create(
@@ -66,7 +78,8 @@ class PostController extends Controller
                 'title' => $request->title,
                 'shortDesc' => $request->shortDesc,
                 'description' => $request->description,
-                'image' => $imagePath
+                'image' => $imagePath,
+                'thumbnail' => 'thumbnail/'.$imagePath,
             ]
         );
      
