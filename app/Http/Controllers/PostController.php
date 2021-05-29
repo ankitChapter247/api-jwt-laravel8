@@ -134,6 +134,15 @@ class PostController extends Controller
             $destinationPath = 'image/';
             $imagePath = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $imagePath);
+
+            $thumbdestinationPath = 'image/thumbnail';
+                    if(!File::isDirectory($thumbdestinationPath)){
+                        File::makeDirectory($thumbdestinationPath, 0777, true, true);
+                    }
+                $img = Image::make('image/'.$imagePath);
+                $img->resize(80, 80, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($thumbdestinationPath.'/'.$imagePath);
         } else {
             $imagePath = $post->image;
         }
@@ -142,6 +151,8 @@ class PostController extends Controller
         $post->shortDesc = $request->shortDesc;
         $post->description = $request->description;
         $post->image = $imagePath;
+        $post->thumbnail = 'thumbnail/'.$imagePath;
+
         $post->save();
          
         if ($post) {

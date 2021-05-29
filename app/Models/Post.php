@@ -19,6 +19,8 @@ class Post extends Model
         'shortDesc',
         'description',
         'image',
+        'thumbnail',
+        'is_fetured',
         'created_at',
         'updated_at'
     ];
