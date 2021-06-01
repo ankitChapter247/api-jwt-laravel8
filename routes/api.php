@@ -37,3 +37,11 @@ Route::group(['prefix' => 'post', 'middleware' => ['api']], function () {
     Route::post('update/{id}', 'PostController@update');
     Route::post('destroy/{id}', 'PostController@destroy');
 });
+
+// post category
+Route::group(['prefix' => 'category', 'middleware' => ['api']], function () {
+    Route::get('index', 'CategoryController@index');
+    Route::post('store', 'CategoryController@store');
+    Route::post('update/{id}', 'CategoryController@update');
+    Route::post('destroy/{id}', 'CategoryController@destroy');
+});
