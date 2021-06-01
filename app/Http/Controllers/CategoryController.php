@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::latest()->paginate(5);
+        $category = Category::latest()->get();
         if (count($category)) {
             return response()->json(
                 [
@@ -58,7 +58,8 @@ class CategoryController extends Controller
         if ($category) {
             return response()->json([
                 'message' => 'Successfully add new category',
-                'data'  => $category
+                'data'  => $category,
+                'status' => 200
             ]);
         } else {
             return response()->json(
