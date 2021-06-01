@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::latest()->get();
+        $category = Category::latest()->paginate(10);
         if (count($category)) {
             return response()->json(
                 [
