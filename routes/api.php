@@ -45,3 +45,9 @@ Route::group(['prefix' => 'category', 'middleware' => ['api']], function () {
     Route::post('update/{id}', 'CategoryController@update');
     Route::post('destroy/{id}', 'CategoryController@destroy');
 });
+
+Route::get('tranding-list', 'FrontController@trandingList');
+Route::get('social-media', 'FrontController@socialMedia');
+Route::get('categories', 'FrontController@categories');
+Route::post('post/list', 'FrontController@postList');
+Route::post('post/byCategory', 'FrontController@postByCategory');

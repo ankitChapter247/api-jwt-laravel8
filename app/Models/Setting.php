@@ -5,9 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Setting extends Model
 {
     use HasFactory;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'settings';
 
     /**
      * The attributes that are mass assignable.
@@ -15,15 +22,12 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-        'category_id',
-        'shortDesc',
-        'description',
-        'image',
-        'thumbnail',
-        'is_fetured',
+        'facebook_url',
+        'twitter_url',
+        'youtube_url',
+        'instagram_url',
+        'vimo_url',
         'created_at',
         'updated_at'
     ];
-
 }

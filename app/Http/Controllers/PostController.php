@@ -46,6 +46,7 @@ class PostController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'         => 'required|string',
+            'category_id'   => 'required',
             'shortDesc'     => 'required|string',
             'description'   => 'required|string',
             'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -76,6 +77,7 @@ class PostController extends Controller
         $post = Post::create(
             [
                 'title' => $request->title,
+                'category_id' => $request->category_id,
                 'shortDesc' => $request->shortDesc,
                 'description' => $request->description,
                 'image' => $imagePath,
@@ -110,6 +112,7 @@ class PostController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'         => 'required|string',
+            'category_id'   => 'required',
             'shortDesc'     => 'required|string',
             'description'   => 'required|string',
             'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
