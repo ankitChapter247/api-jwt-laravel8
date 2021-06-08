@@ -80,7 +80,7 @@ class FrontController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);                        
         }
 
-        $post = Post::skip($request->start)->take($request->total)->get();
+        $post = Post::with('category')->skip($request->start)->take($request->total)->get();
 
         if (count($post)) {
             return response()->json(
