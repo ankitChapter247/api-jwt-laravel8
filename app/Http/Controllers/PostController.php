@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::latest()->paginate(5);
+        $post = Post::latest()->with('category')->paginate(5);
         if (count($post)) {
             return response()->json(
                 [

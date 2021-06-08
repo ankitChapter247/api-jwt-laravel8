@@ -9,7 +9,7 @@ use Validator;
 class FrontController extends Controller
 {
     public function trandingList() {
-        $post = Post::select('id', 'title')->skip(0)->take(5)->get();
+        $post = Post::with('category')->select('id', 'title')->skip(0)->take(5)->get();
         if (count($post)) {
             return response()->json(
                 [
@@ -80,7 +80,7 @@ class FrontController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);                        
         }
 
-        $post = Post::skip($request->start)->take($request->total)->get();
+        $post = Post::with('category')->skip($request->start)->take($request->total)->get();
 
         if (count($post)) {
             return response()->json(
@@ -110,7 +110,7 @@ class FrontController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);                        
         }
 
-        $post = Post::where('category_id', $request->category_id)->take($request->total)->get();
+        $post = Post::with('category')->where('category_id', $request->category_id)->take($request->total)->get();
 
         if (count($post)) {
             return response()->json(
