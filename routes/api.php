@@ -47,6 +47,13 @@ Route::group(['prefix' => 'category', 'middleware' => ['api']], function () {
     Route::post('destroy/{id}', 'CategoryController@destroy');
 });
 
+// setting
+Route::group(['prefix' => 'setting', 'middleware' => ['api']], function () {
+    Route::get('index', 'SettingController@index');
+    Route::post('store', 'SettingController@store');
+});
+
+
 Route::get('tranding-list', 'FrontController@trandingList');
 Route::get('social-media', 'FrontController@socialMedia');
 Route::get('categories', 'FrontController@categories');
