@@ -35,6 +35,26 @@ class PostController extends Controller
         }
         
     }
+    public function edit($id)
+    {
+        $post = Post::find($id);
+
+        if ($post) {
+            return response()->json(
+                [
+                'message'=> "Post data",
+                 'data'  => $post
+                ], 
+            );
+        }else{
+            return response()->json(
+                [
+                'message'=> "post are not found"
+                ], 
+                401
+            );
+        }   
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -44,6 +64,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //print_r($request->all()); die;
+        // return response()->json([
+        //     'message' => 'Successfully add new post',
+        //     'data'  => $request->all()
+        // ]);
         $validator = Validator::make($request->all(), [
             'title'         => 'required|string',
             'category_id'   => 'required',
@@ -57,7 +82,7 @@ class PostController extends Controller
         } 
 
         $input = $request->all();
-  
+        // dd($input);
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
             $imagePath = date('YmdHis') . "." . $image->getClientOriginalExtension();
@@ -80,14 +105,19 @@ class PostController extends Controller
                 'category_id' => $request->category_id,
                 'shortDesc' => $request->shortDesc,
                 'description' => $request->description,
+                'post_slug' => $request->post_slug,
                 'image' => $imagePath,
                 'thumbnail' => 'thumbnail/'.$imagePath,
             ]
         );
-     
+       
         if ($post) {
+            // For making unique slug, adding the inserted post ID to the post slug
+            $post->post_slug = $post->post_slug.'_'.$post->id;
+            $post->save();
             return response()->json([
                 'message' => 'Successfully add new post',
+                'status' => 200,
                 'data'  => $post
             ]);
         } else {

@@ -15,7 +15,7 @@ class AddThumbnailToPosts extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->string('thumbnail',255)->nullable();
-            $table->enum('is_fetured', [0,1]);
+            $table->enum('is_fetured', [0,1])->nullable();
         });
     }
 

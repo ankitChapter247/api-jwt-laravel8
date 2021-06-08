@@ -23,7 +23,13 @@ class Post extends Model
         'thumbnail',
         'is_fetured',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'post_slug'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 }

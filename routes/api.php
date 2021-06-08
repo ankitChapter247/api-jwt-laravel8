@@ -34,7 +34,8 @@ Route::group([
 Route::group(['prefix' => 'post', 'middleware' => ['api']], function () {
     Route::get('index', 'PostController@index');
     Route::post('store', 'PostController@store');
-    Route::post('update/{id}', 'PostController@update');
+    Route::get('edit/{id}', 'PostController@edit');
+    Route::put('update/{id}', 'PostController@update');
     Route::post('destroy/{id}', 'PostController@destroy');
 });
 

@@ -90,6 +90,8 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        // echo "<pre>";print_r($request); die;
+        // dd($request);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,

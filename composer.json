@@ -12,7 +12,8 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "intervention/image": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

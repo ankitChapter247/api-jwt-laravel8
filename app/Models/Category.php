@@ -26,4 +26,9 @@ class Category extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function posts()
+    {
+        return $this->HasMany(Post::class);
+    }
 }

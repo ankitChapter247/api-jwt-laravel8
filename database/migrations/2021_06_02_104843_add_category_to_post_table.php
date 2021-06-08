@@ -15,6 +15,7 @@ class AddCategoryToPostTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->integer( 'category_id' )->nullable()->after('title');
+            $table->string( 'post_slug' )->after('title');
         });
     }
 
@@ -27,6 +28,7 @@ class AddCategoryToPostTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->dropColumn('category_id');
+            $table->dropColumn('post_slug');
         });
     }
 }
