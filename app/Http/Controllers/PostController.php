@@ -22,14 +22,14 @@ class PostController extends Controller
         if (count($post)) {
             return response()->json(
                 [
-                    'message' => 'show posts ',
+                    'message' => 'Show posts ',
                     'data'  => $post
                 ]
             );
         } else {
             return response()->json(
                 [
-                    'message'=> "no post are avilable"
+                    'message'=> "No post are avilable"
                 ]
             ,204);   
         }
@@ -37,7 +37,7 @@ class PostController extends Controller
     }
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::with('category')->find($id);
 
         if ($post) {
             return response()->json(
@@ -49,7 +49,7 @@ class PostController extends Controller
         }else{
             return response()->json(
                 [
-                'message'=> "post are not found"
+                'message'=> "Post not found"
                 ], 
                 401
             );
@@ -116,14 +116,14 @@ class PostController extends Controller
             $post->post_slug = $post->post_slug.'_'.$post->id;
             $post->save();
             return response()->json([
-                'message' => 'Successfully add new post',
+                'message' => 'New post added successfully',
                 'status' => 200,
                 'data'  => $post
             ]);
         } else {
             return response()->json(
                 [
-                'message'=> "something went wrong"
+                'message'=> "Something went wrong"
                 ], 
                 401
             );   
@@ -145,7 +145,7 @@ class PostController extends Controller
             'category_id'   => 'required',
             'shortDesc'     => 'required|string',
             'description'   => 'required|string',
-            'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
   
         if ($validator->fails()) {             
@@ -157,7 +157,7 @@ class PostController extends Controller
         if (!$post) {
             return response()->json(
                 [
-                'message'=> "post are not found"
+                'message'=> "Post not found"
                 ], 
                 401
             );
@@ -184,6 +184,7 @@ class PostController extends Controller
         $post->shortDesc = $request->shortDesc;
         $post->description = $request->description;
         $post->image = $imagePath;
+        $post->category_id = $request->category_id;
         $post->thumbnail = 'thumbnail/'.$imagePath;
 
         $post->save();
@@ -192,7 +193,8 @@ class PostController extends Controller
             
             return response()->json(
                 [
-                'message' => 'post updated successfully',
+                'message' => 'Post updated successfully',
+                'status' => 200,
                 'data'  => $post
                 ]
             );
@@ -200,7 +202,7 @@ class PostController extends Controller
         } else {
             return response()->json(
                 [
-                'message'=> "something went wrong"
+                'message'=> "Something went wrong"
                 ], 
                 401
             );    
@@ -224,14 +226,15 @@ class PostController extends Controller
             $post->delete();             
             return response()->json(
                 [
-                'message' => 'post delete successfully'
+                'message' => 'Post delete successfully',
+                'status' => 200
                 ]
             );
 
         } else {
             return response()->json(
                 [
-                'message'=> "something went wrong"
+                'message'=> "Something went wrong"
                 ], 
                 401
             );    
